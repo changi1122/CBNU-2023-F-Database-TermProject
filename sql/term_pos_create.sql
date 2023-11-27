@@ -22,7 +22,6 @@ CREATE TABLE `product` (
 	`barcode` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`inventory` INT(11) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`product_id`) USING BTREE,
-	UNIQUE INDEX `provider` (`provider`) USING BTREE,
 	UNIQUE INDEX `barcode` (`barcode`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
@@ -46,8 +45,7 @@ ENGINE=InnoDB;
 CREATE TABLE `provider` (
 	`provider` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`provider_address` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`provider`) USING BTREE,
-	CONSTRAINT `fk_provider` FOREIGN KEY (`provider`) REFERENCES `product` (`provider`) ON UPDATE CASCADE ON DELETE CASCADE
+	PRIMARY KEY (`provider`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB;
@@ -66,8 +64,8 @@ ENGINE=InnoDB;
 CREATE TABLE `discount` (
 	`discount_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`rate` INT(11) NOT NULL DEFAULT '0',
-	`start_date` DATETIME(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-	`end_date` DATETIME(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+	`start_date` DATETIME(6) NOT NULL DEFAULT '1970-01-01 00:00:01.000000',
+	`end_date` DATETIME(6) NOT NULL DEFAULT '1970-01-01 00:00:01.000000',
 	`product_id` BIGINT(20) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`discount_id`) USING BTREE,
 	INDEX `fk_product_id` (`product_id`) USING BTREE,
