@@ -13,8 +13,8 @@ public class Main {
     public static void main(String[] args) {
 
         Mode mode = Mode.Product;
-        View currentView = new ProductView();
         Controller currentController =  new ProductController(Mode.Product);
+        View currentView = new ProductView((ProductController) currentController);
 
         while (true) {
             currentView.clearConsole();
@@ -28,16 +28,16 @@ public class Main {
                 
                 /* 모드 전환 */
                 if (mode == Mode.Sale) {
-                    currentView = new SaleView();
                     currentController = new SaleController(Mode.Sale);
+                    currentView = new SaleView();
                 }
                 else if (mode == Mode.Product) {
-                    currentView = new ProductView();
                     currentController = new ProductController(Mode.Product);
+                    currentView = new ProductView((ProductController) currentController);
                 }
                 else if (mode == Mode.Event) {
-                    currentView = new EventView();
                     currentController = new EventController(Mode.Event);
+                    currentView = new EventView((EventController) currentController);
                 }
             }
 

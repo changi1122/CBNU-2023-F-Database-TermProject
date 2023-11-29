@@ -19,16 +19,43 @@ public class ProductController extends Controller {
         Scanner sc = new Scanner(System.in);
 
         String command = sc.nextLine();
-        char action = command.charAt(0);
+        char action = (command.isEmpty()) ? ' ' : command.charAt(0);
 
         switch(action) {
             case 'N':
             case 'n':
                 createProduct();
                 break;
+            case 'D':
+            case 'd':
+                this.mode = Mode.Event;
+                break;
+            case 'X':
+            case 'x':
+                this.mode = Mode.Sale;
+                break;
+            default:
+                break;
         }
 
         return mode;
+    }
+
+
+    /* 상품 전체 목록 JOIN 후 조회 */
+    public ResultSet readProduct() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                    "SELECT *" +
+                            "FROM (product NATURAL JOIN provider) NATURAL  JOIN  origin"
+            );
+            rs = stmt.executeQuery();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        return rs;
     }
 
 
@@ -102,7 +129,6 @@ public class ProductController extends Controller {
             System.out.println(e);
         }
     }
-
 
     // ':' 출력 후 사용자 입력 받기
     private static String getInput(String target) {

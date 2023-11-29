@@ -1,7 +1,8 @@
 package controller;
 
 import enums.Mode;
-import view.View;
+
+import java.util.Scanner;
 
 public class SaleController extends Controller {
     Mode mode;
@@ -13,6 +14,18 @@ public class SaleController extends Controller {
 
     @Override
     public Mode getCommand() {
+        Scanner sc = new Scanner(System.in);
+
+        String command = sc.nextLine();
+        if (command.isEmpty())
+            return mode;
+        char action = command.charAt(0);
+
+        switch(action) {
+            default:
+                
+                break;
+        }
 
 
 
