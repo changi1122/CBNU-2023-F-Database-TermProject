@@ -42,7 +42,10 @@ public class SaleController extends Controller {
                 printAllSales();
                 break;
             case '-':
-                deleteCart(command.substring(1));
+                if (command.substring(1).equals("-"))
+                    deleteAllCart();
+                else
+                    deleteCart(command.substring(1));
             default:
                 createCart(command);
                 break;
@@ -167,6 +170,18 @@ public class SaleController extends Controller {
                             ") WHERE product_id = " + productId);
                 }
             }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    /* 담은 상품 모두 지우기 */
+    private void deleteAllCart() {
+        try {
+            PreparedStatement cstmt = con.prepareStatement("DELETE FROM cart");
+            cstmt.execute();
+            cstmt.execute("DELETE FROM cartprice");
         }
         catch (Exception e) {
             System.out.println(e);
