@@ -47,8 +47,7 @@ public class ProductController extends Controller {
         ResultSet rs = null;
         try {
             PreparedStatement stmt = con.prepareStatement(
-                    "SELECT *" +
-                            "FROM (product NATURAL JOIN provider) NATURAL  JOIN  origin"
+                    "SELECT * FROM (product NATURAL JOIN provider) NATURAL  JOIN  origin"
             );
             rs = stmt.executeQuery();
         }

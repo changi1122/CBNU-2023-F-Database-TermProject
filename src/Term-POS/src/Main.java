@@ -12,9 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Mode mode = Mode.Product;
-        Controller currentController =  new ProductController(Mode.Product);
-        View currentView = new ProductView((ProductController) currentController);
+        Mode mode = Mode.Sale;
+        Controller currentController =  new SaleController(Mode.Sale);
+        View currentView = new SaleView((SaleController) currentController);
 
         while (true) {
             currentView.clearConsole();
@@ -29,7 +29,7 @@ public class Main {
                 /* 모드 전환 */
                 if (mode == Mode.Sale) {
                     currentController = new SaleController(Mode.Sale);
-                    currentView = new SaleView();
+                    currentView = new SaleView((SaleController) currentController);
                 }
                 else if (mode == Mode.Product) {
                     currentController = new ProductController(Mode.Product);
