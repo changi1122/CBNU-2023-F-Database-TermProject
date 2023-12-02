@@ -129,7 +129,7 @@ public class SaleController extends Controller {
                             ") WHERE product_id = " + productId);
                 }
                 else {
-                    // 새로 장바구니 넣음
+                    // 새로 장바구니 넣을 경우
                     cstmt.execute("INSERT INTO cart(count, product_id) VALUES (1, " + productId + ")");
                     cstmt.execute("INSERT INTO cartprice(count, product_id, final_price) VALUES (1, " + productId + ", "
                             + "(SELECT regular_price * (100 - IFNULL(rate, 0)) / 100 AS price " +
@@ -193,7 +193,7 @@ public class SaleController extends Controller {
         try {
             PreparedStatement stmt = con.prepareStatement("INSERT INTO sale(created_at, is_income, total_price, payment) " +
                     "VALUES (NOW(), FALSE, (SELECT SUM(final_price) FROM cartprice), ?)");
-            String payment = getInput("결제 수단:");
+            String payment = getInput("결제 수단");
             stmt.setString(1, payment);
             stmt.execute();
 
